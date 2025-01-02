@@ -1,4 +1,4 @@
-FROM alpine:3.21.0
+FROM ubuntu:plucky-20241213
 FROM alpine/helm:3
 
 RUN apt-get update -qq \
