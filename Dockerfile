@@ -1,3 +1,4 @@
+FROM alpine/helm:3
 FROM ubuntu:plucky-20241213
 
 RUN apt-get update -qq \
@@ -11,5 +12,3 @@ RUN apt-get update -qq \
 RUN sed -i "s/overlay/vfs/g" /etc/containers/storage.conf
 # Add docker.io as a search registry
 RUN sed -i '0,/\[\]/s/\[\]/["docker.io"]/' /etc/containers/registries.conf
-
-FROM alpine/helm:3
