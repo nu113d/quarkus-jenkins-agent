@@ -10,3 +10,5 @@ RUN apt-get update -qq \
 
 # Change default storage driver to vfs
 RUN sed -i "s/overlay/vfs/g" /etc/containers/storage.conf
+# Add docker.io as a search registry
+RUN sed -i '0,/\[\]/s/\[\]/["docker.io"]/' /etc/containers/registries.conf
