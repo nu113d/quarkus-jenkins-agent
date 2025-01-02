@@ -1,12 +1,12 @@
-FROM alpine/helm:3
-FROM ubuntu:plucky-20241213
+FROM jenkins/inbound-agent:alpine
+USER root
 
-RUN apt-get install -qq -y software-properties-common uidmap \
-    && add-apt-repository -y ppa:projectatomic/ppa \
-    && apt-get -qq -y install podman \
-    && apt-get install -y iptables
+RUN apk add --no-cache --update podman  fuse-overlayfs
 
-# Change default storage driver to vfs
-RUN sed -i "s/overlay/vfs/g" /etc/containers/storage.conf
-# Add docker.io as a search registry
-RUN sed -i '0,/\[\]/s/\[\]/["docker.io"]/' /etc/containers/registries.conf
+RUN sed -i 's/#mount_program/mount_program/' /etc/containers/storage.conf
+
+RUN echo jenkins:100000:65536 >/etc/subuid
+RUN echo jenkins:100000:65536 >/etc/subgid
+USER Jenkins
+
+FROM FROM alpine/helm:3
