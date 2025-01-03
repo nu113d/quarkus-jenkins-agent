@@ -3,5 +3,5 @@ def packHelmChart(){
 }
 
 def pushChart(String repoUrl){
-    sh 'curl -u admin:passw0rd '${repoUrl}' --upload-file test-*.tgz -v'
+    sh 'curl -u admin:passw0rd ${repoUrl} --upload-file test-*.tgz -v'
 }
